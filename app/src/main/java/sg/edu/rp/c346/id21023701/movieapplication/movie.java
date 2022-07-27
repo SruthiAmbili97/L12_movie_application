@@ -3,20 +3,34 @@ package sg.edu.rp.c346.id21023701.movieapplication;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import androidx.annotation.NonNull;
+import java.io.Serializable;
 
-public class movie extends ArrayAdapter {
+
+public class movie implements Serializable {
+    private int id;
     private String title;
     private String genre;
     private int year;
-    private char rating;
+    private String rating;
 
-    public movie(@NonNull Context context, int resource, String title, String genre, int year, char rating) {
-        super(context, resource);
+
+
+    public movie(int id, String title, String genre, int year, String rating){
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.year = year;
         this.rating = rating;
+    }
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -43,11 +57,11 @@ public class movie extends ArrayAdapter {
         this.year = year;
     }
 
-    public char getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(char rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 }
