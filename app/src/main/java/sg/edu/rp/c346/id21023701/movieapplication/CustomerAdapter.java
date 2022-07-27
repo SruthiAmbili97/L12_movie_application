@@ -38,12 +38,20 @@ public class CustomerAdapter extends ArrayAdapter {
         tvTitle.setText(movieItem.getTitle());
         tvGenre.setText(movieItem.getGenre());
         tvYear.setText(movieItem.getYear());
-        if (movieItem.getGender()== 'F'){
-            ivGender.setImageResource(R.drawable.female);
+        if (movieItem.getRating().equals("G")){
+            ivRating.setImageResource(R.drawable.rating_g);
+        }else if(movieItem.getRating().equals("M18")){
+            ivRating.setImageResource(R.drawable.rating_m18);
+        }else if(movieItem.getRating().equals("NC16")){
+            ivRating.setImageResource(R.drawable.rating_nc16);
+        }else if(movieItem.getRating().equals("PG")) {
+            ivRating.setImageResource(R.drawable.rating_pg);
+        }else if(movieItem.getRating().equals("PG13")) {
+            ivRating.setImageResource(R.drawable.rating_pg13);
         }else{
-            ivGender.setImageResource(R.drawable.male);
-
+            ivRating.setImageResource(R.drawable.rating_r21);
         }
+
 
 
         return rowView;
