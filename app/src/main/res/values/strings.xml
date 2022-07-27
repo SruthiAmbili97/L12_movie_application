@@ -17,4 +17,9 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 
+    <string name="tvTitle1">tvTitle</string>
+    <string name="tvGenere1">tvGenere</string>
+    <string name="tvYear1">tvYear</string>
+    <string name="lvShow">SHOW ALL PG-13 MOVIES</string>
+
 </resources>
