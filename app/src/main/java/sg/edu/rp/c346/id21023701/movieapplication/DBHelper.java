@@ -2,9 +2,12 @@ package sg.edu.rp.c346.id21023701.movieapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -28,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_TITLE + " TEXT, "
                 + COLUMN_GENRE + " TEXT, "
                 + COLUMN_YEAR + " INTEGER, "
-                + COLUMN_RATING + " CHAR )";
+                + COLUMN_RATING + " TEXT )";
         db.execSQL(createmovieTableSql);
         Log.i("info", createmovieTableSql + "\ncreated tables");
     }
@@ -37,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVIE);
         onCreate(db);
     }
-    public long insertMovie(String title, String genre, int year, char rating) {
+    public long insertMovie(String title, String genre, int year, String rating) {
         // Get an instance of the database for writing
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -45,12 +48,37 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, genre);
         values.put(COLUMN_YEAR, year);
         values.put(COLUMN_RATING, rating);
-        // Insert the row into the TABLE_SONG
         long result = db.insert(TABLE_MOVIE, null, values);
         // Close the database connection
         db.close();
         Log.d("SQL Insert","" + result);
         return result;
+    }
+
+    public ArrayList<movie> getAllMovies() {
+        ArrayList<movie> movielist = new ArrayList<movie>();
+        String selectQuery = "SELECT " + COLUMN_ID + ","
+                + COLUMN_TITLE + "," + COLUMN_GENRE + ","
+                + COLUMN_YEAR + ","
+                + COLUMN_RATING + " FROM " + TABLE_MOVIE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String genre = cursor.getString(2);
+                int year = cursor.getInt(3);
+                String rating = cursor.getString(4);
+
+                movie newMovie = new movie(id, title, genre, year, rating);
+                movielist.add(newMovie);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return movielist;
     }
 
 

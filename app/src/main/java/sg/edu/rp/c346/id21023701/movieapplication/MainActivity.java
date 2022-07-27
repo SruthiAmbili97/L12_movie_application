@@ -2,17 +2,28 @@ package sg.edu.rp.c346.id21023701.movieapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-EditText etYear,etMovieTitle, etGenre;
-Button btnInsert, btnList;
+    EditText etYear,etMovieTitle, etGenre;
+    Spinner spinner;
+    Button btnInsert, btnList;
+    ArrayList<movie> al;
+    ArrayAdapter<movie> aa;
+    movie data;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +32,45 @@ Button btnInsert, btnList;
         etMovieTitle = findViewById(R.id.editTextMovieTitle);
         etGenre = findViewById(R.id.editTextGenre);
         etYear = findViewById(R.id.editTextYear);
+        spinner = findViewById(R.id.spinner);
+
+        aa = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, al);
+        al = new ArrayList<>();
+
+        Intent i = getIntent();
+        data = (movie) i.getSerializableExtra("data");
 
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = etMovieTitle.getText().toString().trim();
-                String genre = etGenre.getText().toString().trim();
+                DBHelper dbh = new DBHelper(MainActivity.this);
+                String title = etMovieTitle.getText().toString();
+                String genre = etGenre.getText().toString();
+                int year = Integer.parseInt(etYear.getText().toString());
+                String rating =spinner.getSelectedItem().toString();
                 if (title.length() == 0 || genre.length() == 0){
                     Toast.makeText(MainActivity.this, "Incomplete data", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                long inserted_id = dbh.insertMovie(title,genre,year,rating);
+                if (inserted_id != -1){
+                    al.clear();
+                    al.addAll(dbh.getAllMovies());
+                    aa.notifyDataSetChanged();
+                    Toast.makeText(MainActivity.this, "Insert successful",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.this, "Insert unsuccessful",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ShowMovies.class);
+                startActivity(i);
             }
         });
     }

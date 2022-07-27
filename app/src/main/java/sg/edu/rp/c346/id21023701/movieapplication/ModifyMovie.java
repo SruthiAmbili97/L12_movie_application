@@ -19,6 +19,5 @@ public class ModifyMovie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_movie);
 
-        btnUpdate
     }
 }
