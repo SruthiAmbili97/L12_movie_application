@@ -8,7 +8,7 @@
 
 
     <string name="etTitle">Enter movie title here</string>
-    <string name="etId"> </string>
+    <string name="etId">Enter movie Id here </string>
     <string name="etYear">Enter year of release here</string>
 
 

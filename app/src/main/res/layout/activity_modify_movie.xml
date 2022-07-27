@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginBottom="10dp"
-        android:hint="@string/tvId" />
+        android:hint="@string/etId" />
 
     <TextView
         android:id="@+id/tvTitle2"
