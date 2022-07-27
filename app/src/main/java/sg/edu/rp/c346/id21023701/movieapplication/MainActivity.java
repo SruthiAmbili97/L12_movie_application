@@ -13,14 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etYear,etMovieTitle, etGenre;
     Spinner spinner;
     Button btnInsert, btnList;
-    ArrayList<movie> al;
-    ArrayAdapter<movie> aa;
+    ArrayList <String> al;
+    ArrayAdapter <String> aa;
     movie data;
 
 
@@ -33,10 +34,15 @@ public class MainActivity extends AppCompatActivity {
         etGenre = findViewById(R.id.editTextGenre);
         etYear = findViewById(R.id.editTextYear);
         spinner = findViewById(R.id.spinner);
+        btnInsert = findViewById(R.id.buttonInsert);
+        btnList = findViewById(R.id.buttonList);
 
-        aa = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, al);
-        al = new ArrayList<>();
+
+        al = new ArrayList<>(Arrays.asList("Select movie rating","G", "PG", "PG13", "NC16", "M18", "R21"));
+        aa = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, al);
+
+        spinner.setAdapter(aa);
 
         Intent i = getIntent();
         data = (movie) i.getSerializableExtra("data");
@@ -55,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 long inserted_id = dbh.insertMovie(title,genre,year,rating);
                 if (inserted_id != -1){
-                    al.clear();
-                    al.addAll(dbh.getAllMovies());
-                    aa.notifyDataSetChanged();
                     Toast.makeText(MainActivity.this, "Insert successful",
                             Toast.LENGTH_SHORT).show();
                 }else{
