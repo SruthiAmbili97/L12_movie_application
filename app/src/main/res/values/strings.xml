@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">movie application</string>
+    <string name="tvId">Movie ID</string>
+    <string name="tvTitle2">Movie Title</string>
+    <string name="tvGenere2">Genere</string>
+    <string name="tvYear2">Year</string>
+    <string name="tvRating2">Rating</string>
+
+    <string name="etYear2"> </string>
+    <string name="etTitle2"> </string>
+    <string name="etId"> </string>
+    <string name="etGenere2"> </string>
+    <string name="etRating2"> </string>
+
+
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
