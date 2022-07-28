@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class CustomerAdapter extends ArrayAdapter {
     Context parent_context;
     int layout_id;
-    ArrayList<movie>alMovieList;
+    ArrayList<movie> movieList;
 
-    public CustomerAdapter(Context context,int resource,ArrayList<movie>objects){
+    public CustomerAdapter(Context context,int resource,ArrayList<movie> objects){
         super(context, resource,objects);
         parent_context = context;
         layout_id = resource;
-        alMovieList = objects;
+        movieList = objects;
 
 
     }
@@ -34,7 +34,7 @@ public class CustomerAdapter extends ArrayAdapter {
         TextView tvYear = rowView.findViewById(R.id.tvYear1);
         ImageView ivRating = rowView.findViewById(R.id.imageView);
 
-        movie movieItem = alMovieList.get(position);
+        movie movieItem = movieList.get(position);
         tvTitle.setText(movieItem.getTitle());
         tvGenre.setText(movieItem.getGenre());
         tvYear.setText(movieItem.getYear());
