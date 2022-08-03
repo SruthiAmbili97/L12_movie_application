@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id21023701.movieapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Movie;
 import android.os.Bundle;
@@ -71,22 +73,49 @@ public class ModifyMovie extends AppCompatActivity {
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                DBHelper dbh = new DBHelper(ModifyMovie.this);
-                int result =dbh.deleteMovie(currentMovie.getId());
-                if(result>0){
-                    Toast.makeText(ModifyMovie.this,"Movie deleted",Toast.LENGTH_SHORT).show();
-                    finish();
-                }else{
-                    Toast.makeText(ModifyMovie.this,"Delete failed",Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(ModifyMovie.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to delete the movie "+getTitle());
+                myBuilder.setCancelable(false);
+                myBuilder.setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DBHelper dbh = new DBHelper(ModifyMovie.this);
+                        int result =dbh.deleteMovie(currentMovie.getId());
+                        if(result>0){
+                            Toast.makeText(ModifyMovie.this,"Movie deleted",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(ModifyMovie.this,"Delete failed",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                myBuilder.setPositiveButton("CANCEL",null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                AlertDialog.Builder myBuilder = new AlertDialog.Builder(ModifyMovie.this);
+                myBuilder.setTitle("Danger");
+                myBuilder.setMessage("Are you sure you want to discard the movie "+ getTitle());
+                myBuilder.setCancelable(false);
+                myBuilder.setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+
+                myBuilder.setPositiveButton("DO NOT DISCARD",null);
+                AlertDialog myDialog = myBuilder.create();
+                myDialog.show();
             }
         });
     }
