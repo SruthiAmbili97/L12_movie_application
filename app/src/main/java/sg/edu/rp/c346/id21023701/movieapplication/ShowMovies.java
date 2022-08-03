@@ -17,6 +17,16 @@ public class ShowMovies extends AppCompatActivity {
    ArrayList<movie>alMovieList;
    CustomerAdapter caMovie;
    Button butShowList;
+   @Override
+   protected void onResume() {
+       super.onResume();
+       DBHelper dbh = new DBHelper(this);
+       alMovieList.clear();
+       alMovieList.addAll(dbh.getAllMovies());
+       caMovie.notifyDataSetChanged();
+
+
+   }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

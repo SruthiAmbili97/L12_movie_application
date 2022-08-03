@@ -38,7 +38,7 @@ public class ModifyMovie extends AppCompatActivity {
         etId.setText(currentMovie.getId()+" ");
         etTitle.setText(currentMovie.getTitle());
         etGenere.setText(currentMovie.getGenre());
-        // rating spinner.
+        //spinRating.setAdapter(currentMovie.getRating());
         etYear.setText(currentMovie.getYear()+" ");
 
 
