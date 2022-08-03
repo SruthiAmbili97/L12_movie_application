@@ -24,6 +24,7 @@ public class ShowMovies extends AppCompatActivity {
         setContentView(R.layout.activity_show_movies);
 
         lvShow =findViewById(R.id.lvShow);
+        butShowList = findViewById(R.id.butShowList);
         alMovieList = new ArrayList<>();
 
         caMovie = new CustomerAdapter(this,R.layout.row,alMovieList);

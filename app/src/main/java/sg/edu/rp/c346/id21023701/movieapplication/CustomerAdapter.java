@@ -37,7 +37,7 @@ public class CustomerAdapter extends ArrayAdapter {
         movie movieItem = movieList.get(position);
         tvTitle.setText(movieItem.getTitle());
         tvGenre.setText(movieItem.getGenre());
-        tvYear.setText(movieItem.getYear());
+        tvYear.setText(movieItem.getYear()+"");
         if (movieItem.getRating().equals("G")){
             ivRating.setImageResource(R.drawable.rating_g);
         }else if(movieItem.getRating().equals("M18")){
