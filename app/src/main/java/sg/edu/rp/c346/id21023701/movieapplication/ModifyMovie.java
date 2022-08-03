@@ -23,7 +23,7 @@ public class ModifyMovie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_movie);
 
-     //setMovie(getMovie().toString() + " ~ "+ "Modify Movie");
+      //setMovie(getMovie().toString() + " ~ "+ "Modify Movie");
      btnCancel = findViewById(R.id.btnCancel);
      btnUpdate = findViewById(R.id.btnUpdate);
      btnDelete = findViewById(R.id.btnDelete);
@@ -38,7 +38,8 @@ public class ModifyMovie extends AppCompatActivity {
         etId.setText(currentMovie.getId()+" ");
         etTitle.setText(currentMovie.getTitle());
         etGenere.setText(currentMovie.getGenre());
-        etYear.setText(currentMovie.getYear());
+        // rating spinner.
+        etYear.setText(currentMovie.getYear()+" ");
 
 
 
@@ -55,6 +56,7 @@ public class ModifyMovie extends AppCompatActivity {
                     Toast.makeText(ModifyMovie.this, "Invalid year", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                currentMovie.setYear(Year);
 
             }
         });
@@ -62,7 +64,7 @@ public class ModifyMovie extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DBHelper dbh = new DBHelper(ModifyMovie.this);
-                int result = (currentMovie.getId());
+                int result =dbh.deleteMovie(currentMovie.getId());
                 if(result>0){
                     Toast.makeText(ModifyMovie.this,"Movie deleted",Toast.LENGTH_SHORT).show();
                     finish();
