@@ -47,7 +47,7 @@ public class ModifyMovie extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(ModifyMovie.this);
-                int result= dbh.updateMovie(currentMovie);
+
                 currentMovie.setTitle(etTitle.getText().toString().trim());
                 currentMovie.setGenre(etGenere.getText().toString().trim());
                 int Year = 0;
@@ -58,6 +58,15 @@ public class ModifyMovie extends AppCompatActivity {
                     return;
                 }
                 currentMovie.setYear(Year);
+                int result= dbh.updateMovie(currentMovie);
+
+                if (result>0){
+                    Toast.makeText(ModifyMovie.this, "Song updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(ModifyMovie.this, "Update failed", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
