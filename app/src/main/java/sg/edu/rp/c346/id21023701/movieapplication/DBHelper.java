@@ -88,7 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE,data.getGenre());
         values.put(COLUMN_YEAR,data.getYear());
         values.put(COLUMN_RATING,data.getRating());
-        String condition = COLUMN_ID + "=";
+        String condition = COLUMN_ID + "= ?";
         String[] args = {String.valueOf(data.getId())};
         int result = db.update(TABLE_MOVIE,values,condition,args);
         db.close();

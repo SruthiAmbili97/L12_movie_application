@@ -47,6 +47,7 @@ public class ModifyMovie extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(ModifyMovie.this);
+                int result= dbh.updateMovie(currentMovie);
                 currentMovie.setTitle(etTitle.getText().toString().trim());
                 currentMovie.setGenre(etGenere.getText().toString().trim());
                 int Year = 0;
